@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Pressable, Modal, TextInput, Button } from "react-native";
 import { AppStyles } from "./styles.js";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from "axios";
 
 //components
 import DirCard from "./components/dir-list.js";
@@ -12,6 +13,20 @@ const App = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [repoUrl, setRepoUrl] = useState("");
   const [repoList, setRepoList] = useState([{ name: 'demo' }, { name: 'demo2' }]);
+
+  useEffect(() => {
+    fetchRepos();
+  }, []);
+
+  const fetchRepos = async () => {
+    try {
+      const response = await axios.get('http://localhost:4001/getRepos'); // Replace with your server URL
+      setRepoList(response.data);
+    } catch (error) {
+      console.error(error);
+      // Handle errors (e.g., display an error message to the user)
+    }
+  };
 
   const handleAddRepo = () => {
     setIsModalVisible(true);
@@ -42,10 +57,10 @@ const App = () => {
       return;
     }
   
-    // Handle potential response from the server (e.g., success message)
+    // Handle server response
     const data = await response.json();
     console.log('Server response:', data);
-    setRepoList([...repoList, { name: repoUrl.split('/').pop().split('.')[0] }]);
+    fetchRepos('/home/retro/projects/git-asgn/server/repos');
   };
 
   const handleDelete = () => {
