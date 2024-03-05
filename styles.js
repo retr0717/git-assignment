@@ -64,4 +64,48 @@ export const AppStyles = StyleSheet.create({
     letterSpacing: 0.25,
     color: 'white',
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 10,
+    width: 400,
+  },
+
+  modalText: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+
+  input: {
+    height: 40,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  downloadBtn:{
+    backgroundColor:'black',
+
+  },
+  modalButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+    borderRadius:20,
+    marginBottom:10,
+    color:'white',
+    textAlign:'center',
+    fontSize:18,
+  }
 });
