@@ -17,10 +17,35 @@ const App = () => {
     setIsModalVisible(true);
   };
 
-  const handleDownload = () => {
-    // Logic to download repo and update repo list
-    setRepoList([...repoList, { name: repoUrl }]);
+  const handleDownload = async () => {
+    // Simulate updating the UI (remove if implementing real download)
     setIsModalVisible(false);
+  
+    // Send the GitHub URL to the server-side component (replace with actual API call)
+    const response = await fetch('http://localhost:4001/download', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ url: repoUrl }),
+    });
+  
+    if (!response.ok) {
+      const data = await response.json();
+      console.error('Download failed:', data.message);
+  
+      if (data.message === 'Repository already exists. Choose a different one.') {
+        // Inform the user about the duplicate repository error
+        alert('Download failed. Repository already exists. Please choose a different one.');
+      }
+  
+      return;
+    }
+  
+    // Handle potential response from the server (e.g., success message)
+    const data = await response.json();
+    console.log('Server response:', data);
+    setRepoList([...repoList, { name: repoUrl.split('/').pop().split('.')[0] }]);
   };
 
   const handleDelete = () => {
